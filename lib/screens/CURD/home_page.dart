@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> _update([DocumentSnapshot? documentSnapshot]) async {
     if (documentSnapshot != null) {
       _nameCont.text = documentSnapshot['Name'];
-      _priceCont.text = documentSnapshot['Price'].toString();
+      _priceCont.text = documentSnapshot['Price'];
     }
     await showModalBottomSheet(
         isScrollControlled: true,
@@ -45,13 +45,11 @@ class _HomePageState extends State<HomePage> {
               children: [
                 TextField(
                   controller: _nameCont,
-                  decoration: const InputDecoration(labelText: 'Name'),
+                  decoration: const InputDecoration(labelText: 'Title'),
                 ),
                 TextField(
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
                   controller: _priceCont,
-                  decoration: const InputDecoration(labelText: 'Price'),
+                  decoration: const InputDecoration(labelText: 'Note'),
                 ),
                 const SizedBox(
                   height: 20,
@@ -60,7 +58,8 @@ class _HomePageState extends State<HomePage> {
                   child: const Text("Update"),
                   onPressed: () async {
                     final String name = _nameCont.text;
-                    final double? price = double.tryParse(_priceCont.text);
+                    // final double? price = double.tryParse(_priceCont.text);
+                    final String? price = _priceCont.text;
                     if (price != null) {
                       await _products
                           .doc(documentSnapshot!.id)
@@ -97,13 +96,11 @@ class _HomePageState extends State<HomePage> {
               children: [
                 TextFormField(
                   controller: _nameCont,
-                  decoration: const InputDecoration(labelText: 'Name',),
+                  decoration: const InputDecoration(labelText: 'Title',),
                 ),
                 TextFormField(
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
                   controller: _priceCont,
-                  decoration: const InputDecoration(labelText: 'Price'),
+                  decoration: const InputDecoration(labelText: 'Note'),
                 ),
                 const SizedBox(
                   height: 20,
@@ -113,7 +110,8 @@ class _HomePageState extends State<HomePage> {
                     child: const Text("Create"),
                     onPressed: () async {
                       final String name = _nameCont.text;
-                      final double? price = double.tryParse(_priceCont.text);
+                      // final double? price = double.tryParse(_priceCont.text);
+                      final String? price = _priceCont.text;
                       if (price != null) {
                         await _products.add({"Name": name, "Price": price});
                         _nameCont.text = '';
